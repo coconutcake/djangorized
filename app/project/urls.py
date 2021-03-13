@@ -6,6 +6,7 @@ from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from django.views.generic import RedirectView
 from django.urls import reverse
+from django.conf import settings
 
 
 schema_view = get_schema_view(
@@ -19,7 +20,7 @@ schema_view = get_schema_view(
       
    ),
    public=True,
-   url='https://127.0.0.1:4433/',
+   url=settings.SERVER_NAME,
    permission_classes=(permissions.AllowAny,),
 )
 
