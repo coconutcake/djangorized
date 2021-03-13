@@ -33,7 +33,7 @@ services:
         environment:
             - ADDRESS=0.0.0.0
             - PORT=8877
-            - SERVER_NAME=https://104.155.24.215:5555/ # <- adres lub domena servera cloudowego
+            - SERVER_URL=https://104.155.24.215:5555/ # <- adres lub domena servera cloudowego (wymagane dla swaggera)
             - DB_ENGINE=django.db.backends.postgresql
             - DB_NAME=app
             - DB_USER=django_app

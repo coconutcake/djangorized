@@ -20,7 +20,7 @@ schema_view = get_schema_view(
       
    ),
    public=True,
-   url=settings.SERVER_NAME,
+   url=settings.SERVER_URL,
    permission_classes=(permissions.AllowAny,),
 )
 

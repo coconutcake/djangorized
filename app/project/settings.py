@@ -192,7 +192,7 @@ USE_X_FORWARDED_HOST = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Swagger settings
-SERVER_NAME = os.environ['SERVER_NAME'] #<- Adres serwera dla swaggera
+SERVER_URL = os.environ['SERVER_URL'] #<- Adres serwera dla swaggera
 SWAGGER_SETTINGS = {
     'USE_SESSION_AUTH': True,
     'SECURITY_DEFINITIONS': {
