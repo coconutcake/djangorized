@@ -24,7 +24,9 @@ SECRET_KEY = 'sijhgpfshdp9gw09gw0g[90w8jh4t9w384yut9038ut93pmgjnr98gue90g8ue508e
 # SECRET_KEY = 'o$5cf@j=jutvh-z&*k1bc9am8qf8k!$%w3tqq(!$_168z6py_e'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
+DEBUG = True if os.environ['SERVER_TYPE'] == "1" else False
+
 CSRF_COOKIE_SECURE = True
 SECURE_HSTS_SECONDS = 31536000
 SECURE_CONTENT_TYPE_NOSNIFF = False

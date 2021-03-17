@@ -31,8 +31,7 @@ class AppOperations(components.interfaces.OperationsInterface):
         Runs django production server
         """
         super().log(f"Starting gunicorn production server: {host}:{port}")
-        os.environ['DEBUG'] = "False"
-        return os.system(f"gunicorn {host}:{port}")
+        return os.system(f"cd ./app && gunicorn --bind {host}:{port} project.wsgi")
     
     
     def make_migrations(self, params="") -> None:
