@@ -13,7 +13,10 @@ def getCurrentTime():
 	return ds
 def runServer(adres=os.environ.get("ADDRESS"),port=os.environ.get("PORT")):
     print("{0} - Executing django server...".format(getCurrentTime()))
-    return os.system("python3 ./app/manage.py runserver {0}:{1}" .format(adres,port))
+    if os.environ.get("APPSERVER") == "default":
+        return os.system("python3 ./app/manage.py runserver {0}:{1}" .format(adres,port))
+    elif os.environ.get("APPSERVER") == "gunicorn":
+        return os.system("gunicorn --bind {0}:{1} app.wsgi {0}:{1}" .format(adres,port))
 def makeMigrations(params=""):
     print("{0} - Preparing migrations...".format(getCurrentTime()))
     return os.system("python3 ./app/manage.py makemigrations {0}" .format(params))

@@ -4,7 +4,7 @@ import components.prints
 import os
 
 # Environmnent variables
-server_type = os.environ['SERVER_TYPE'] # <- 1 - Developing, 2- Production
+server_type = os.environ['APPSERVER'] # <- 1 - Developing, 2- Production
 port = os.environ['PORT']
 host = os.environ['ADDRESS']
 db_host = os.environ.get("DB_ADDRESS")
@@ -30,10 +30,11 @@ if __name__ == "__main__":
         app_operations.migrate()
         
         while True:
-            if server_type == "1":
+            if server_type == "developer":
                 app_operations.run_dev_server(host=host, port=port)
                 
-            elif server_type == "2":
+            elif server_type == "production":
+                app_operations.collect_static()
                 app_operations.run_pro_server(host=host, port=port)
             
             else:

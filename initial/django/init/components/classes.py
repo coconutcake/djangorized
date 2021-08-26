@@ -49,6 +49,13 @@ class AppOperations(components.interfaces.OperationsInterface):
         super().log(f"Applying migrations...")
         return os.system(f"{self.get_python_version()} {self.__manage_file} migrate {params}")
     
+    def collect_static(self, params="") -> None:
+        """
+        Migrates migrations
+        """
+        super().log(f"Collecting statics...")
+        return os.system(f"cd ./app && python3 manage.py collectstatic --noinput")
+    
     
     def test(self, app="") -> None:
         """
