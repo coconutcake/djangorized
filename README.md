@@ -115,8 +115,8 @@ DB_PORT=5432
 # Nazwa bazy do testów
 DB_TESTS=tests
 
-# Typ uruchomianego serwera 1-developerski, 2-produkcyjny
-SERVER_TYPE=1 
+# Typ uruchomianego serwera opcje: developer, production
+APPSERVER=developer
 ```
 
 #### nginx:
