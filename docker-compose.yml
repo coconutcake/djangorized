@@ -67,7 +67,7 @@ services:
         build:
             context: .
             dockerfile: ./dockerfiles/nginx/Dockerfile
-        privileged: true
+        # privileged: true
         volumes: 
             - ./logs:/var/log/nginx
             - static:/static/

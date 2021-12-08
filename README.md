@@ -187,6 +187,11 @@ Aby sworzyc token dla utworzonego usera - USER to login (email)
 docker exec -it djangoapp sh -c "python3 app/manage.py drf_create_token USER" 
 ```
 
+Zgraj pliki `static`:
+```
+docker exec -it djangoapp sh -c "python app/manage.py collectstatic"
+```
+
 Możliwe jest równiez utworzenie tokena przez wbudowany CMS
 
 
