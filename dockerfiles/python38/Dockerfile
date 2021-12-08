@@ -1,4 +1,4 @@
-FROM python:3.8-slim
+FROM python:3.9.9-slim-buster
 LABEL maintainer = "mign.pl"
 
 ENV PYTHONUNBUFFERED 1

@@ -1,8 +1,14 @@
 version: "3"
 
 services:
+
+
+
     postgres:
-        image: postgres:alpine3.14
+        # build: 
+        #     context: .
+        #     dockerfile: ./dockerfiles/postgres/Dockerfile
+        image: postgres:alpine3.15
         container_name: postgres
         restart: always
         environment:
@@ -13,6 +19,9 @@ services:
             - 5432:5432
         volumes:             
             - ./initial/db:/docker-entrypoint-initdb.d
+
+
+
     adminer:
         image: adminer
         container_name: adminer
@@ -21,6 +30,9 @@ services:
             - 8080:8080
         depends_on:
             - postgres
+
+
+
     djangoapp:
         build: 
             context: .
@@ -55,6 +67,7 @@ services:
         build:
             context: .
             dockerfile: ./dockerfiles/nginx/Dockerfile
+        privileged: true
         volumes: 
             - ./logs:/var/log/nginx
             - static:/static/

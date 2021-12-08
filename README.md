@@ -144,6 +144,18 @@ SERVER_NAME=default_server_ip
 
 ## 🚀 Uruchomienie <a name = "getting_started"></a>
 
+**UWAGA! Czytaj jesli odpalasz na RPI:**
+--
+  Mozesz doswiadczyc problemow z odpaleniem postgres - blad segmentacji 11. Aby rozwiazac ten problem doinstaluj konkrente biblioteki `libseccomp2`:
+
+Zdalne:
+```
+wget http://ftp.debian.org/debian/pool/main/libs/libseccomp/libseccomp2_2.5.1-1_armhf.deb && sudo dpkg -i libseccomp2_2.5.1-1_armhf.deb
+```
+Biblioteka jest wrzucona rowniez lokalnie w glownym folderze.
+
+---
+
 Wykonaj klona jesli masz juz zainstalowanego dockera:
 ```
 git clone https://github.com/coconutcake/djangorized.git
