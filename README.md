@@ -144,17 +144,108 @@ SERVER_NAME=default_server_ip
 
 ## 🚀 Uruchomienie <a name = "getting_started"></a>
 
-**UWAGA! Czytaj jesli odpalasz na RPI:**
+**UWAGA! Czytaj jesli odpalasz na RPI!:**
 --
-  Mozesz doswiadczyc problemow z odpaleniem postgres - blad segmentacji 11. Aby rozwiazac ten problem doinstaluj konkrente biblioteki `libseccomp2`:
 
-Zdalne:
-```
-wget http://ftp.debian.org/debian/pool/main/libs/libseccomp/libseccomp2_2.5.1-1_armhf.deb && sudo dpkg -i libseccomp2_2.5.1-1_armhf.deb
-```
-Biblioteka jest wrzucona rowniez lokalnie w glownym folderze.
+1. **Zainstaluj biblioteke `libseccomp2`**
+
+    Mozesz doswiadczyc problemow z odpaleniem bazy postgres - (blad segmentacji 11). Aby rozwiazac ten problem doinstaluj konkrente biblioteki `libseccomp2`:
+  
+    Zdalne:
+
+    ```
+    wget http://ftp.debian.org/debian/pool/main/libs/libseccomp/libseccomp2_2.5.1-1_armhf.deb && sudo dpkg -i libseccomp2_2.5.1-1_armhf.deb
+    ```
+
+    Biblioteka jest wrzucona rowniez lokalnie w glownym folderze.
 
 ---
+
+**UWAGA! Czytaj jesli odpalasz na Windows!:**
+---
+
+1. **Przygotuj subsystem**
+
+
+    Celem przygotowanie subsystemu z linuxem jest unikniecie problemow z kompatybilnoscia kodu, ktory jest niezgodny z linuxowym. Dlatego pierwszym krokiem bedzie sprawdzenie czy mamy zainstalowany pakiet obslugujace te maszyny.
+
+    Powershell as admin:
+
+    ```
+    Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+    ```
+
+    Zainstaluj Debian:
+
+    ```
+    wsl.exe --install -d Debian
+    ```
+
+    Przekonwertuj wsl 1 na wsl 2:
+
+    ```
+    wsl --set-version Debian 2
+    ```
+
+    Sprawdz zainstalowana wersje:
+
+    ```
+    wsl -l -v
+    ```
+
+    Jesli wersja wsl wskazuje na 2, przejdz do nastepnrgo kroku
+
+2. **Przygotowanie uzytkownika**
+
+    Uruchom maszyne:
+
+    ```
+    wsl --distribution Debian
+    ```
+
+
+3. **Zintegruj obsluge dockera z wsl:**
+
+    ![use_wsl_engine](https://github.com/coconutcake/djangorized/blob/main/adds/use_wsl_engine.png?raw=true)
+
+    ![wsl_docker_integration](https://github.com/coconutcake/djangorized/blob/main/adds/wsl_docker_integration.png?raw=true)
+
+4. **Skonfiguruj VSCODE**
+
+    Zainstaluj Docker i SSH na remote:
+    
+    ```
+    CTRL + SHIFT + X > Docker
+    ```
+
+5. **Podlacz do DEBIAN wsl**
+
+    ```
+    CTRL + SHIFT + P > wsl di
+    ```
+
+    ![wsl_select](https://github.com/coconutcake/djangorized/blob/main/adds/wsl_select.png?raw=true)
+
+    ![wsl_debian](https://github.com/coconutcake/djangorized/blob/main/adds/wsl_debian.png?raw=true)
+
+6. **Ustaw dostepy usera do docker.socket**
+
+    
+    Dodaj go do grupy docker:
+
+    ```
+    sudo usermod -aG docker $USER
+    ```
+
+    Nadaj dodatkowe prawa dla docker.socket:
+
+    ```
+    sudo chmod 666 /var/run/docker.sock
+    ```
+---
+**Kontynuacja wspolna dla wszystich systemow:**
+---
+
 
 Wykonaj klona jesli masz juz zainstalowanego dockera:
 ```
