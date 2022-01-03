@@ -1,0 +1,92 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% load rest_framework %}
+{% block title %}Welcome to Djangorized!{% endblock %}
+
+
+
+{% block content %}
+
+
+
+<div class="container">
+    <div class="row justify-content-center align-self-center">
+
+        <div class="col-12 text-center p-4">
+            <img src="http://mign.pl/img/logodjangorized.png" width="100px"/>
+            <h1>Djangorized is <strong><span class="font-weight-bold text-success">ready!</span></strong></h1>
+        </div>
+        <hr>
+
+        <div class="col-12 p-2">
+            <h4>Info: </h4>
+            <ul>
+                <li>PLATFORM: 
+                    <ul>
+                    {% for name,value in get_platform_info.items %}
+                        <li>{{ name }}: {{ value }}</li>
+                    {% endfor %}
+                    </ul>
+                </li>
+                <li>WAN: 
+                    <ul>
+                    {% for name,value in get_wan.items %}
+
+                        {% if name == "port_status" %}
+                            {% if value == True %}
+                                <li>{{ name }}: <i class="fas fa-circle text-success"></i> <strong class="text-success">open!</strong></li>
+                            {% else %}
+                                <li>{{ name }}: <i class="fas fa-circle text-danger"></i> <strong class="text-danger">closed!</strong></li>
+                            {% endif %}
+                        {% elif name == "pingable" %}
+                            {% if value == True %}
+                                <li>{{ name }}: <i class="fas fa-circle text-success"></i> <strong class="text-success">yes!</strong></li>
+                            {% else %}
+                                <li>{{ name }}: <i class="fas fa-circle text-danger"></i> <strong class="text-danger">no!</strong></li>
+                            {% endif %}
+                        {% else %}
+                        <li>{{ name }}: {{ value }}</li>
+                        {% endif %}
+                    {% endfor %}
+                    </ul>
+                </li>
+                <li>LAN IP: {{ get_ip_lan }}</li>
+                <li>DB: 
+                    <ul>
+                    {% for name,value in get_db.items %}
+                        {% if name == "pingable" %}
+                            {% if value == True %}
+                                <li>{{ name }}: <i class="fas fa-circle text-success"></i> <strong class="text-success">yes!</strong></li>
+                            {% else %}
+                                <li>{{ name }}: <i class="fas fa-circle text-danger"></i> <strong class="text-danger">no!</strong></li>
+                            {% endif %}
+                        {% else %}
+                        <li>{{ name }}: {{ value }}</li>
+                        {% endif %}
+                    {% endfor %}
+                    </ul>
+                </li>
+                <li>SERVER TYPE: {{ get_server_type }}</li>
+            </ul>
+        </div>
+
+        <div class="col-12 p-2">
+            <h4>Urls:</h4>
+            <ul>
+                <li><a href="https://127.0.0.1:{{ get_wan.port }}{% url "schema-swagger-ui" %}">loopback Swagger API</a></li>
+                <li><a href="https://{{ get_ip_lan }}:{{ get_wan.port }}{% url "schema-swagger-ui" %}">Lan IP Swagger API</a></li>
+                <li><a href="https://{{ get_wan.ip }}:{{ get_wan.port }}{% url "schema-swagger-ui" %}">Wan IP Swagger API (Musisz miec uruchomiony hairpin nat!)</a></li>
+            </ul>
+        </div>
+        <hr>
+
+        <div class="col-12 text-center">
+            Made by <a href="https://github.com/coconutcake">coconutcake</a>
+        </div>
+
+    </div>
+  </div>
+
+
+
+{% endblock %}
