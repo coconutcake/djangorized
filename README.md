@@ -7,7 +7,7 @@
 
 <div align="center">
 
-[![Stauts](https://img.shields.io/travis/coconutcake/djangorized)](https://travis-ci.org/github/coconutcake/djangorized)
+[![Build Status](https://app.travis-ci.com/coconutcake/djangorized.svg?branch=main)](https://app.travis-ci.com/coconutcake/djangorized)
 [![Requirements Status](https://requires.io/github/coconutcake/djangorized/requirements.svg?branch=main)](https://requires.io/github/coconutcake/djangorized/requirements/?branch=main)
 
 </div>
