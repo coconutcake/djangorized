@@ -305,8 +305,11 @@ Projekt aplikacji django na kontenerach dockera wraz z zintegrowana baza postgre
 ## 🌎 Endpointy (wg. domyślnej konfiguracji) <a name = "endpoints"></a>:
 ---
 
+
 - 🔐 **HTTPS(nginx)** -> https://127.0.0.1:5555/
 - 🔓 **HTTP(nginx)** -> https://127.0.0.1:8833/
+
+![ready](https://github.com/coconutcake/djangorized/blob/main/adds/ready.png?raw=true)
 
 
 ## 📜 Uwagi końcowe <a name = "result"></a>
