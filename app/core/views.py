@@ -28,6 +28,7 @@ class WelcomeView(View):
         """
         Context zwracany do GET
         """
+        
         lan_ip = functions.get_ip_lan()
         server_type = functions.get_server_type()
         platform = functions.get_platform_info()
