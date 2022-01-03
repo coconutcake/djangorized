@@ -176,7 +176,7 @@ Projekt aplikacji django na kontenerach dockera wraz z zintegrowana baza postgre
 1. **Przygotuj subsystem**
 
 
-    Celem przygotowanie subsystemu z linuxem jest unikniecie problemow z kompatybilnoscia kodu, ktory jest niezgodny z linuxowym. Dlatego pierwszym krokiem bedzie sprawdzenie czy mamy zainstalowany pakiet obslugujace te maszyny.
+    Celem przygotowanie subsystemu z linuxem jest unikniecie problemow z kompatybilnoscia kodu, ktory jest zgodny z linuxowym. Dlatego pierwszym krokiem bedzie sprawdzenie czy mamy zainstalowany pakiet obslugujace te maszyny.
 
     Powershell as admin:
 
