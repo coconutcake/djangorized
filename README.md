@@ -19,17 +19,23 @@
 </p>
 
 ## 📝 Zawartość
-- [O projekcie](#about)
-- [Założenia projektowe](#zalozenia)
-- [Technologia i metodyka](#tech)
-- [Uruchomienie](#getting_started)
-- [API](#api)
+- 🧐 [O projekcie](#about)
+- 📰 [Założenia projektowe](#zalozenia)
+- 🧑‍🔬 [Technologia i metodyka](#tech)
+- 🚀 [Uruchomienie](#getting_started)
+  - 🔧 [Przygotowanie na RPI (*ARMv7 based CPU)](#rpi)
+  - 🔧 [Przygotowanie na WINDOWS](#windows)
+  - 🔧 [Dalsze, wspolne kroki instalacyjne](#mutual)
+- 🌎 [Endpointy](#endpoints)
+- 📜 [Uwagi koncowe](#result)
 
-## 🧐 O projekcie <a name = "about"></a>  
+## 🧐 O projekcie <a name = "about"></a>
+---
 
 Projekt aplikacji django na kontenerach dockera wraz z zintegrowana baza postgres oraz serwerem nginx
 
 ## 📰 Założenia projektowe <a name = "zalozenia"></a>
+---
 
 #### Konteneryzacja i usługi:
 1. Utworzenie spójnego modelu konteneryzacji z uwzględnieniem plików `Dockerfile` w osobnych folderach dla każdego kontenera.
@@ -45,6 +51,7 @@ Projekt aplikacji django na kontenerach dockera wraz z zintegrowana baza postgre
 
 
 ## 🧑‍🔬Technologia i metodyka <a name = "tech"></a>
+---
 
 #### Podział kontenerów Dockera:
 - Python 3.8 z django
@@ -66,86 +73,88 @@ Projekt aplikacji django na kontenerach dockera wraz z zintegrowana baza postgre
 
 
 ## ⚙️ Konfiguracja <a name = "config"></a>
+---
 
-Za pomocą `docker-compose.yml` możliwa jest konfiguracja stacku za pomocą zmiennych środowiskowych dla poszczególnych usług:
+1. Za pomocą `docker-compose.yml` możliwa jest konfiguracja stacku za pomocą zmiennych środowiskowych dla poszczególnych usług:
 
-#### postgres:
+- postgres:
 
-```
-# Nazwa bazy danych dla aplikacji
-POSTGRES_DB: app
+  ```
+  # Nazwa bazy danych dla aplikacji
+  POSTGRES_DB: app
 
-# Nazwa Usera django do logowania na baze postgres
-POSTGRES_USER: django_app
+  # Nazwa Usera django do logowania na baze postgres
+  POSTGRES_USER: django_app
 
-# Hasło Usera aplikacji django do logowania na baze postgres
-POSTGRES_PASSWORD: asdasd123
-```
+  # Hasło Usera aplikacji django do logowania na baze postgres
+  POSTGRES_PASSWORD: asdasd123
+  ```
+- djangoapp:
 
-#### djangoapp:
+    ```
+    # Adres serwera django
+    ADDRESS=0.0.0.0
 
-```
-# Adres serwera django
-ADDRESS=0.0.0.0
+    # Port servera django
+    PORT=8877
 
-# Port servera django
-PORT=8877
+    # Adres servera nginx na którego bedą wysyłane zapytania (Swagger), zmień na adres cloudowy jeśli pracujesz na chmurze!
+    SERVER_URL=https://127.0.0.1:5555/
 
-# Adres servera nginx na którego bedą wysyłane zapytania (Swagger), zmień na adres cloudowy jeśli pracujesz na chmurze!
-SERVER_URL=https://127.0.0.1:5555/
+    # Silnik bazodanowy dla django
+    DB_ENGINE=django.db.backends.postgresql
 
-# Silnik bazodanowy dla django
-DB_ENGINE=django.db.backends.postgresql
+    # Nazwa bazy danych postgres
+    DB_NAME=app
 
-# Nazwa bazy danych postgres
-DB_NAME=app
+    # Nazwa Usera django do logowania na baze postgres
+    DB_USER=django_app
 
-# Nazwa Usera django do logowania na baze postgres
-DB_USER=django_app
+    # Hasło Usera aplikacji django do logowania na baze postgres
+    DB_PASSWORD=asdasd123
 
-# Hasło Usera aplikacji django do logowania na baze postgres
-DB_PASSWORD=asdasd123
+    # Adres kontenera z bazą danych
+    DB_ADDRESS=postgres
 
-# Adres kontenera z bazą danych
-DB_ADDRESS=postgres
+    # Port bazy postgres
+    DB_PORT=5432
 
-# Port bazy postgres
-DB_PORT=5432
+    # Nazwa bazy do testów
+    DB_TESTS=tests
 
-# Nazwa bazy do testów
-DB_TESTS=tests
+    # Typ uruchomianego serwera opcje: developer, production
+    APPSERVER=developer
+    ```
 
-# Typ uruchomianego serwera opcje: developer, production
-APPSERVER=developer
-```
+- nginx:
 
-#### nginx:
+    ```
+    # Adres aplikacji django, która zostanie upstremowana do servera nginx
+    UPSTREAM_APP_URL=djangoapp:8877
 
-```
-# Adres aplikacji django, która zostanie upstremowana do servera nginx
-UPSTREAM_APP_URL=djangoapp:8877
+    # Proxy pass
+    PROXY_PASS=djangoapp
 
-# Proxy pass
-PROXY_PASS=djangoapp
+    # Port wystawianego servera HTTP
+    HTTP_SERVER_PORT=8833
 
-# Port wystawianego servera HTTP
-HTTP_SERVER_PORT=8833
+    # Port wystawianego servera HTTPS
+    HTTPS_SERVER_PORT=5555
 
-# Port wystawianego servera HTTPS
-HTTPS_SERVER_PORT=5555
-
-# Ip lub domena severa (zmiana niekonieczna)
-SERVER_NAME=default_server_ip
-```
+    # Ip lub domena severa (zmiana niekonieczna)
+    SERVER_NAME=default_server_ip
+    ```
 
 
 
 
 
 ## 🚀 Uruchomienie <a name = "getting_started"></a>
+---
 
-**UWAGA! Czytaj jesli odpalasz na RPI!:**
---
+
+## 🔧 RPI <a name = "rpi"></a>
+---
 
 1. **Zainstaluj biblioteke `libseccomp2`**
 
@@ -159,9 +168,9 @@ SERVER_NAME=default_server_ip
 
     Biblioteka jest wrzucona rowniez lokalnie w glownym folderze.
 
----
 
-**UWAGA! Czytaj jesli odpalasz na Windows!:**
+
+## 🔧 WINDOWS <a name = "windows"></a>
 ---
 
 1. **Przygotuj subsystem**
@@ -242,51 +251,67 @@ SERVER_NAME=default_server_ip
     ```
     sudo chmod 666 /var/run/docker.sock
     ```
+
+
+
+## 🔧 Kontynuacja wspolna dla wszystich systemow <a name = "mutual"></a>
 ---
-**Kontynuacja wspolna dla wszystich systemow:**
+
+
+1. **Wykonaj klona jesli masz juz zainstalowanego dockera:**
+
+    ```
+    git clone https://github.com/coconutcake/djangorized.git
+    ```
+
+2. **Po pobraniu klona, przejdz do folderu i zbuduj obrazy poleceniem:**
+
+    `TIP` : *Mozesz wylaczyc tryb `buildkit` aby wyswietlic tryb debugowania:*
+
+    ```
+    export DOCKER_BUILDKIT=0 && export COMPOSE_DOCKER_CLI_BUILD=0
+    ```
+
+    ```
+    docker-compose up --build
+    ```
+
+    Aplikacja powinna być dostępna.
+
+3. **Aby zalogować sie na panel administracyjny należy pierw utworzyć konto superadmina.**
+
+    ```
+    docker exec -it djangoapp sh -c "python3 app/manage.py createsuperuser"
+    ```
+
+
+4. **Aby sworzyc token dla utworzonego usera - USER to login (email)**
+
+    ```
+    docker exec -it djangoapp sh -c "python3 app/manage.py drf_create_token USER" 
+    ```
+
+    `TIP`: *Możliwe jest równiez utworzenie tokena przez wbudowany CMS*
+
+
+5. **Zgraj pliki `static`:**
+    ```
+    docker exec -it djangoapp sh -c "python app/manage.py collectstatic"
+    ```
+
+
+
+
+## 🌎 Endpointy (wg. domyślnej konfiguracji) <a name = "endpoints"></a>:
 ---
 
-
-Wykonaj klona jesli masz juz zainstalowanego dockera:
-```
-git clone https://github.com/coconutcake/djangorized.git
-```
-
-Po pobraniu klona, przejdz do folderu i zbuduj obrazy poleceniem:
-
-```
-docker-compose up --build
-```
-
-Aplikacja powinna być dostępna.
-Aby zalogować sie na panel administracyjny należy pierw utworzyć konto superadmina.
-
-```
-docker exec -it djangoapp sh -c "python3 app/manage.py createsuperuser"
-```
-
-jesli uzywasz Windowsa, bedziesz musial użyć winpty:
-
-```
-winpty docker exec -it djangoapp sh -c "python3 app/manage.py createsuperuser"
-```
+- 🔐 **HTTPS(nginx)** -> https://127.0.0.1:5555/
+- 🔓 **HTTP(nginx)** -> https://127.0.0.1:8833/
 
 
-Aby sworzyc token dla utworzonego usera - USER to login (email)
+## 📜 Uwagi końcowe <a name = "result"></a>
+---
 
-```
-docker exec -it djangoapp sh -c "python3 app/manage.py drf_create_token USER" 
-```
-
-Zgraj pliki `static`:
-```
-docker exec -it djangoapp sh -c "python app/manage.py collectstatic"
-```
-
-Możliwe jest równiez utworzenie tokena przez wbudowany CMS
-
-
-## 🚀 Uwagi końcowe <a name = "result"></a>
-
-- Dla serwera lokalnego ADRES moze być adresem petli zwrotnej - 127.0.0.1, dla cloudowego bedzie do adres servera cloudowego. Pamietaj o konfiguracji `docker-compose.yml` opisanej w sekcji Konfiguracja
+- Dla serwera lokalnego ADRES moze być adresem petli zwrotnej - 127.0.0.1, dla cloudowego bedzie do adres servera cloudowego. Pamietaj o konfiguracji `docker-compose.yml` opisanej w sekcji Konfiguracja. 
+- Rekomendowane jest ustawienie maskarady `harpin nat` w celu uzywania adresu zewnetrznego.
 - pole <(pk)> w adreach to pk obiektu do ktorego sie odwołujemy
