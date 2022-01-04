@@ -36,13 +36,13 @@
                             {% if value == True %}
                                 <li>{{ name }}: <i class="fas fa-circle text-success"></i> <strong class="text-success">open!</strong></li>
                             {% else %}
-                                <li>{{ name }}: <i class="fas fa-circle text-danger"></i> <strong class="text-danger">closed!</strong></li>
+                                <li>{{ name }}: <i class="fas fa-circle text-danger"></i> <strong class="text-danger">closed!</strong> (Czy uruchomiles hairpin nat i dst-nat na tym porcie aby usluga byla widoczna z zewnatrz?)</li>
                             {% endif %}
                         {% elif name == "pingable" %}
                             {% if value == True %}
                                 <li>{{ name }}: <i class="fas fa-circle text-success"></i> <strong class="text-success">yes!</strong></li>
                             {% else %}
-                                <li>{{ name }}: <i class="fas fa-circle text-danger"></i> <strong class="text-danger">no!</strong></li>
+                                <li>{{ name }}: <i class="fas fa-circle text-danger"></i> <strong class="text-danger">no!</strong> (Czy masz polaczenie z siecia?)</li>
                             {% endif %}
                         {% else %}
                         <li>{{ name }}: {{ value }}</li>
@@ -58,11 +58,18 @@
                             {% if value == True %}
                                 <li>{{ name }}: <i class="fas fa-circle text-success"></i> <strong class="text-success">yes!</strong></li>
                             {% else %}
-                                <li>{{ name }}: <i class="fas fa-circle text-danger"></i> <strong class="text-danger">no!</strong></li>
+                                <li>{{ name }}: <i class="fas fa-circle text-danger"></i> <strong class="text-danger">no!</strong> (Czy kontener bazy postgres poprawnie sie uruchomil wraz z calym stackiem?)</li>
                             {% endif %}
                         {% else %}
                         <li>{{ name }}: {{ value }}</li>
                         {% endif %}
+                    {% endfor %}
+                    </ul>
+                </li>
+                <li>PIP PACKAGES:
+                    <ul>
+                    {% for package in get_pip_packages %}
+                        <span>{{ package.name }}: {{ package.version}}, </span>
                     {% endfor %}
                     </ul>
                 </li>

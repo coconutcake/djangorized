@@ -10,7 +10,7 @@ from rest_framework.authtoken.models import Token
 from typing import List
 
 
-#Funckje sieciowe
+#Funckje 
 def get_ip_lan():
 
     return socket.gethostbyname(socket.gethostname())
@@ -99,6 +99,16 @@ def get_platform_info():
     }
 
     return info
+
+def get_pip_packages():
+
+    packages = [package for package in os.popen("pip3 freeze").read().split("\n")]
+
+    packages.remove("")
+
+    packages_dict = [{"name":package.split("==")[0],"version":package.split("==")[1]} for package in packages]
+
+    return packages_dict
 
 
 #Funkcje pomocnicze
@@ -226,3 +236,5 @@ def exclude_fields(excluded_fields: List, payloads: List):
                     payload.pop(field)
                 except:
                     raise Exception
+
+
