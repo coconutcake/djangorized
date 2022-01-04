@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 import datetime
 from core.models import User
-from core import functions
+from func import functions
 
 
 
