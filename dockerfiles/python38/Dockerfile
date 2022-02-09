@@ -25,6 +25,8 @@ ADD ./initial/django /
 RUN chmod +x ./run.sh
 RUN chmod +x ./init/main.py
 
+
+
 # COPY ./initial/django/run.py /run.py
 # COPY ./initial/django/run.sh /run.sh
 

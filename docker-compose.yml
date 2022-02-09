@@ -78,7 +78,7 @@ services:
         container_name: celery
         working_dir: /app
         command: >
-            celery -A djangorediscelery worker -E -B --loglevel debug -l info
+            /resources/wait-for-it.sh redis:6379 --timeout=50 --strict -- celery -A djangorediscelery worker -E -B --loglevel debug -l info
         volumes:
             - ./app:/app
         links:
