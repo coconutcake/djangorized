@@ -2,6 +2,15 @@ version: "3"
 
 services:
 
+    redis:
+        build: 
+            context: .
+            dockerfile: ./dockerfiles/redis/Dockerfile
+        container_name: redis
+        ports:
+        - '6379:6379'
+        command: redis-server
+
 
 
     postgres:
@@ -61,6 +70,22 @@ services:
             - postgres
         command: >
             /resources/wait-for-it.sh postgres:5432 --timeout=50 --strict -- /run.sh
+
+    celery:
+        build: 
+            context: .
+            dockerfile: ./dockerfiles/python38/Dockerfile
+        container_name: celery
+        working_dir: /app
+        command: >
+            celery -A djangorediscelery worker -E -B --loglevel debug -l info
+        volumes:
+            - ./app:/app
+        links:
+            - postgres
+            - redis
+
+            
     nginx:
         container_name: nginx20
         restart: always
